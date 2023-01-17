@@ -8,15 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "Express",
-    "Node",
-    "MongoDB",
-    "Crud",
-    "DLE",
-    "Learning",
-    "Management",
-    "System",
-    "Mongoose"
+    "Express","Node","MongoDB","Crud","DLE","Learning_Management_System","Mongoose"
   ],
   "author": "Thenura Wijerathne",
   "license": "ISC",
