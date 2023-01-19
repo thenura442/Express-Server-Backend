@@ -1,22 +1,34 @@
 const express = require('express');
 const cors = require('cors');
-let db = require('./Src/Models/model');
-let config = require('./Src/Config/config');
-
 const app = express();
+
+//Requiring the model.js that will connect to the DB with constructor
+require('./Src/Models/model');
+
+//Defining required configuration and variables
+let config = require('./Src/Config/config');
+let route = require('./Src/Routing/route')
 let port = config.port
-let route = require('./Src/Routes/route')
+
+//Cors(cross orgin request) options are set here
 const corsOptions={
     origin:'http://localhost:5500',
+    //credentials:true,            //access-control-allow-credentials:true
     optionsSuccessStatus:200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   };
-  
+
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api', route)
 
+function authenticateToken(req, res) {
+    
+}
+
+
+//Default Loading for the Server
 app.use('/', (req, res) => {
     res.send({ 
         status: 200,
@@ -25,9 +37,9 @@ app.use('/', (req, res) => {
         Port: config.port,
         BaseUrl: config.url+config.port     
     });
-} )
+})
 
-
+//Starting the Server
 app.listen(port, () => {
     console.log(`Sever Running on port ${port}`)
 });  

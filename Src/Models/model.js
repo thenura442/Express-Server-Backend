@@ -6,6 +6,8 @@ class Database {
     this._connect()
   }
   
+// Connecting to MongoDB with _connect and this function will be called from constructor. 
+  
 async _connect() {
     try{
       mongoose.set('strictQuery', true);
@@ -18,7 +20,7 @@ async _connect() {
       console.log(`Open on ${config.url+config.port}`)
     }
     catch(err) {
-      console.error('Database connection error : \n -------------------------------- \n ' + err)
+      console.error('Database connection error : \n---------------------------------------------- \n' + err)
     }
   }
 }
