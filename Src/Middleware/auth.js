@@ -3,9 +3,10 @@ const config = require('../Config/config');
 
 function authenticateToken(payload) {
     try{
-        const accessToken = jwt.sign(payload, config.Access_Token_Secret , { expiresIn: '15s' })
+        const accessToken = jwt.sign(payload, config.Access_Token_Secret 
+            //, { expiresIn: '15s' }
+            )
         const refreshToken = jwt.sign(payload, config.Refresh_Token_Secret)
-        console.log(accessToken);
         return {accessToken: accessToken, refreshToken: refreshToken}
     }
     catch(err){

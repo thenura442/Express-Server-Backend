@@ -115,12 +115,24 @@ class MongooseService {
 
 
     /**
+     * @description Retrieve last Id entered from the Model
+     * @returns {object} Returns the results of the query
+     */
+    findLastId () {
+      return this.model
+        .findOne({},{"_id": 1})
+        .limit(1)
+        .sort({$natural:-1})
+    }
+
+
+    /**
      * @description Retrieve multiple documents from the Model with the provided query
      * @param query {object} - Query to be performed on the Model
      * @param {object} [projection] Optional: Fields to return or not return from query
      * @returns {object} Returns the results of the query
      */
-    find ( query, projection = { __v: 0 }, sort) {
+    find( query, projection = { __v: 0 }, sort) {
       return this.model
         .find( query , projection )
         .sort(sort); 

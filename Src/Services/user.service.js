@@ -24,13 +24,20 @@ class FileService {
    */
   async create ( body) {
     try {
+
+      //Getting _id for the posting object
+      let id = await this.getNewId();
+      if(!id._id) return {Status: 500 ,Error: id.Error}
+      body._id = id._id;
+
+
       //Validate user with Joi Schema
       let error = await this.validateRegistration(body)
-      if (error) return {Status: 400 , Error: error.details[0].message }
+      if (error) return {Status: "400" , Error: error.details[0].message }
 
       //Check if email already exists
       let emailExist = await this.findEmailExist(body);
-      if(emailExist) return  {Status: 400 , Email : emailExist.email, Error: "Email already Exists" }
+      if(emailExist) return  {Status: "400" , Email : emailExist.email, Error: "Email already Exists" }
 
       //Hashing the Password
       const salt = await bcrypt.genSalt(10);
@@ -50,37 +57,43 @@ class FileService {
 
 
 
-  /**
-   * @description Attempt to login with the provided object
-   * @param body {object} Object containing 'email' and 'passwords' fields to
-   * get authenticated
-   * @returns {Object}
-   */
-  async loginAndAuthenticate( body ) {
-    try {
-      //Validate user with Joi Schema
-      let {error} = await loginValidation(body)
-      if (error) return {Status: 400 , Error: error.details[0].message }
+ 
 
-      //Check if email already exists
-      let User = await this.findEmailExist(body);
-      if(!User) return  {Status: 400 , Error: "Email or Password is Wrong" }
 
-      //Checking Password
-      const validPassword = await bcrypt.compare(body.password, User.password)
-      console.log(validPassword)
-      if(!validPassword) return {Status: 400 , Error: "Email or Password is Wrong" }
 
-      //User Authorization Token with Jwt Authentication
-      let user = { _id: User._id, email: User.email, type: User.type };
-      let token = auth.authenticateToken(user);
-      return { Status: 200 , Header: "Authorization", Token: "Bearer " + token.accessToken , Refresh: "Bearer " + token.refreshToken}
-    } 
-    catch ( err ) {
-      console.log( err)
-      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/register.service.js - find(body)"};
-    }
-  }
+
+
+  // /**
+  //  * @description Attempt to login with the provided object
+  //  * @param body {object} Object containing 'email' and 'passwords' fields to
+  //  * get authenticated
+  //  * @returns {Object}
+  //  */
+  // async loginAndAuthenticate( body ) {
+  //   try {
+  //     //Validate user with Joi Schema
+  //     let {error} = await loginValidation(body)
+  //     if (error) return {Status: "400" , Error: error.details[0].message }
+
+  //     //Check if email already exists
+  //     let User = await this.findEmailExist(body);
+  //     if(!User) return  {Status: "400" , Error: "Email or Password is Wrong" }
+
+  //     //Checking Password
+  //     const validPassword = await bcrypt.compare(body.password, User.password)
+  //     console.log(validPassword)
+  //     if(!validPassword) return {Status: "400" , Error: "Email or Password is Wrong" }
+
+  //     //User Authorization Token with Jwt Authentication
+  //     let user = { _id: User._id, email: User.email, type: User.type };
+  //     let token = auth.authenticateToken(user);
+  //     return { Status: 200 , Header: "Authorization", Token: "Bearer " + token.accessToken , Refresh: "Bearer " + token.refreshToken}
+  //   } 
+  //   catch ( err ) {
+  //     console.log( err)
+  //     return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/register.service.js - find(body)"};
+  //   }
+  // }
 
   
 

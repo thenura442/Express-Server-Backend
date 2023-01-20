@@ -13,6 +13,7 @@ const mongoose = require("mongoose");
       parent_name: String,
       parent_no: String,
       landline_no: String,
+      grade: String,
       dle_access: String,
       url: String,
       type: String

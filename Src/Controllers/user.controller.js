@@ -1,7 +1,7 @@
 const file = require( "../Services/user.service" );
 const FileService = new file();
 
-module.exports = { createUser, loginUser ,getAllUsers ,findOne , updateOne, updateMany , deleteOne , deleteMany };
+module.exports = { createUser, getNewId ,getAllUsers ,findOne , updateOne, updateMany , deleteOne , deleteMany };
 
 /**
  * @description Create a cord with the provided body
@@ -20,24 +20,22 @@ async function createUser ( req, res ) {
 }
 
 
+
 /**
- * @description Find email and authenticate with the provided body
+ * @description Get a new Id with the provided body
  * @param req {object} Express req object 
  * @param res {object} Express res object
  * @returns {object} success or failure object
  */
-async function loginUser ( req, res ) {
+async function getNewId ( req, res ) {
   try {
-    const result = await FileService.loginAndAuthenticate( req.body);
-    console.log(result.Token)
-    res.header( result.Header , result.Token );
-    return res.send(result)    
+    const result = await FileService.getNewId();
+    return res.send( result );
   } catch ( err ) {
     console.log( err ); 
     res.status( 500 ).send( { Status: 500 , Success: false, Error : `${err.name} : ${err.message}`  } );
   }
 }
-
 
 
 /**

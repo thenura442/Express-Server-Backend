@@ -42,6 +42,8 @@ const registerStudentValidation = data => {
             .max(10)
             .min(10)
             .required(),
+        grade: Joi.string()
+            .required(),
         dle_access: Joi.string()
             .max(10),
         url: Joi.string()
