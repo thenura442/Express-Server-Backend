@@ -29,7 +29,8 @@ async function createUser ( req, res ) {
  */
 async function getNewId ( req, res ) {
   try {
-    const result = await FileService.getNewId();
+    console.log(req.params)
+    const result = await FileService.getNewId(req);
     return res.send( result );
   } catch ( err ) {
     console.log( err ); 

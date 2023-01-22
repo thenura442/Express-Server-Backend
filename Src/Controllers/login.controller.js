@@ -13,7 +13,7 @@ async function loginUser ( req, res ) {
   try {
     const result = await LoginService.loginAndAuthenticate( req.body);
     if(!result.Token) {return res.send(result)}
-    res.header( result.Header , result.Token );
+    res.cookie('jwt', result.Token, {httpOnly: true,maxAge: 24*60*60*1000})
     return res.send(result)    
   } catch ( err ) {
     console.log( err ); 

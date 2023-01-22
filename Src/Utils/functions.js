@@ -120,7 +120,7 @@ class MongooseService {
      */
     findLastId () {
       return this.model
-        .findOne({},{"_id": 1})
+        .findOne({})
         .limit(1)
         .sort({$natural:-1})
     }

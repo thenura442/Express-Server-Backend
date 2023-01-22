@@ -24,16 +24,16 @@ class LoginService {
 
       //Check if email already exists
       let User = await this.findEmailExist(body);
-      if(!User) return  {Status: "400" , Error: "Email or Password is Wrong" }
+      if(!User) return  {Status: "400" , Error: "Email or Password is Incorrect" }
 
       //Checking Password
       const validPassword = await bcrypt.compare(body.password, User.password)
-      if(!validPassword) return {Status: "400" , Error: "Email or Password is Wrong" }
+      if(!validPassword) return {Status: "400" , Error: "Email or Password is Wrong Incorrect" }
 
       //User Authorization Token with Jwt Authentication
       let user = { _id: User._id, email: User.email, type: User.type };
       let token = auth.authenticateToken(user);
-      return { Status: 200 , Header: "Authorization", Token: "Bearer " + token.accessToken , Refresh: "Bearer " + token.refreshToken}
+      return { Status: 200 , Token: token.accessToken , Refresh: token.refreshToken , "_id": User._id, "email": User.email , "type": User.type }
     } 
     catch ( err ) {
       console.log( err)

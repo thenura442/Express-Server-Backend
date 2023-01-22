@@ -1,9 +1,8 @@
 // services/PostService.js
 const bcrypt = require('bcryptjs');
-const auth = require('../Middleware/auth');
 const MongooseService = require( '../Utils/functions' ); // Data Access Layer
 const FileModel = require( "../Models/user.model" ); // Database Model
-const { registerStudentValidation , registerStaffValidation , loginValidation } = require("../Validation/user.validation");
+const { registerStudentValidation , registerStaffValidation  } = require("../Validation/user.validation");
 
 
 class FileService {
@@ -26,10 +25,10 @@ class FileService {
     try {
 
       //Getting _id for the posting object
-      let id = await this.getNewId();
-      if(!id._id) return {Status: 500 ,Error: id.Error}
-      body._id = id._id;
-
+      let id = await this.getNewId(body.type);
+      console.log(id);
+      if(id.Error) return {Status: 500 ,Error: id.Error}
+      body._id = id;
 
       //Validate user with Joi Schema
       let error = await this.validateRegistration(body)
@@ -57,43 +56,39 @@ class FileService {
 
 
 
- 
-
-
-
-
-
-  // /**
-  //  * @description Attempt to login with the provided object
-  //  * @param body {object} Object containing 'email' and 'passwords' fields to
-  //  * get authenticated
-  //  * @returns {Object}
-  //  */
-  // async loginAndAuthenticate( body ) {
-  //   try {
-  //     //Validate user with Joi Schema
-  //     let {error} = await loginValidation(body)
-  //     if (error) return {Status: "400" , Error: error.details[0].message }
-
-  //     //Check if email already exists
-  //     let User = await this.findEmailExist(body);
-  //     if(!User) return  {Status: "400" , Error: "Email or Password is Wrong" }
-
-  //     //Checking Password
-  //     const validPassword = await bcrypt.compare(body.password, User.password)
-  //     console.log(validPassword)
-  //     if(!validPassword) return {Status: "400" , Error: "Email or Password is Wrong" }
-
-  //     //User Authorization Token with Jwt Authentication
-  //     let user = { _id: User._id, email: User.email, type: User.type };
-  //     let token = auth.authenticateToken(user);
-  //     return { Status: 200 , Header: "Authorization", Token: "Bearer " + token.accessToken , Refresh: "Bearer " + token.refreshToken}
-  //   } 
-  //   catch ( err ) {
-  //     console.log( err)
-  //     return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/register.service.js - find(body)"};
-  //   }
-  // }
+/**
+   * @description Attempt to get newID for new User
+   * @returns {Object}
+   */
+  async getNewId ( type) {
+    try {
+      let model = this.getType(type);
+      this.MongooseServiceInstance = new MongooseService( model );
+      let result = await this.MongooseServiceInstance.findLastId()
+      if(!result.Error){
+        const splitAt = (index, xs) => [xs.slice(0, index), xs.slice(index)]
+        let today = new Date().getFullYear().toString();
+        let yearNow = splitAt(2, today);
+        let lastId = splitAt(2, result._id)
+        if(yearNow[1] === lastId[0]){
+          let newId = lastId[0] +''+ ((parseInt(lastId[1]))+1)
+          return newId;
+        }
+        if(Number(yearNow[1]) > Number(lastId[0])){
+          let newId = yearNow[1]+'1000';
+          return newId;
+        }
+        else{
+          return {Error: 'Invalid Year'}
+        }
+      }
+      return result;
+    } 
+    catch ( err ) {
+      console.log( err)
+      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/register.service.js - getNewId(body)"};
+    }
+  }
 
   
 

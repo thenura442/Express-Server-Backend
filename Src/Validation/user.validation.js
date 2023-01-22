@@ -116,7 +116,7 @@ const loginValidation = data => {
         email: Joi.string()
             .email()
             .required(),
-        password: Joi.string()
+        password: Joi.string()  
             .required(),
         type: Joi.string()
             .required()
