@@ -33,7 +33,7 @@ class LoginService {
       //User Authorization Token with Jwt Authentication
       let user = { _id: User._id, email: User.email, type: User.type };
       let token = auth.authenticateToken(user);
-      return { Status: 200 , Token: token.accessToken , Refresh: token.refreshToken , "_id": User._id, "email": User.email , "type": User.type }
+      return { Status: 200 , Token: token.accessToken , Refresh: token.refreshToken , "_id": User._id, "email": User.email , "type": User.type, "grade": User.grade }
     } 
     catch ( err ) {
       console.log( err)

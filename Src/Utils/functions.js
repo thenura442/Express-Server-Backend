@@ -153,6 +153,19 @@ class MongooseService {
     }
 
 
+    /**
+     * @description Update a document matching the provided ID, with the body
+     * @param id {string} ID for the document to update
+     * @param body {object} Body to update the document with
+     * @param {object} [options] Optional options to provide query
+     * @returns {object} Returns the results of the query
+     */
+    updateOne ( query, body, options = { lean: true, new: true } ) {
+      return this.model
+        .update( query, body, options );
+    }
+
+
 
     /**
      * @description Update documents matching the provided query, with the body

@@ -1,16 +1,17 @@
-const file = require( "../Services/subject.service" );
+const file = require( "../Services/assignment.service" );
 const FileService = new file();
 
-module.exports = { createSubject , findSubject, updateSubject, deleteSubject, getStudentSubjects, getLecturerSubjects};
+module.exports = { createAssignment , findAssignment, updateAssignment, deleteAssignment, getAssignments};
 
 /**
- * @description Create a subject with the provided body
+ * @description Create an assignment with the provided body
  * @param req {object} Express req object 
  * @param res {object} Express res object
  * @returns {object} success or failure object
  */
-async function createSubject ( req, res ) {
+async function createAssignment ( req, res ) {
   try {
+    console.log('Urls'+req.body);
     const result = await FileService.create( req.body);
     return res.send( result );
   } catch ( err ) {
@@ -20,14 +21,14 @@ async function createSubject ( req, res ) {
 }
 
 /**
- * @description Find a subject with the provided id
+ * @description Find an assignment with the provided id
  * @param req {object} Express req object 
  * @param res {object} Express res object
  * @returns {object} success or failure object
  */
-async function findSubject ( req, res ) {
+async function findAssignment ( req, res ) {
   try {
-    const result = await FileService.findSubject( req.body);
+    const result = await FileService.findAssignment( req.body);
     return res.send( result );
   } catch ( err ) {
     console.log( err ); 
@@ -37,14 +38,14 @@ async function findSubject ( req, res ) {
 
 
 /**
- * @description Find a subject with the provided id and update it
+ * @description Find an assignment with the provided id and update it
  * @param req {object} Express req object 
  * @param res {object} Express res object
  * @returns {object} success or failure object
  */
-async function updateSubject ( req, res ) {
+async function updateAssignment ( req, res ) {
   try {
-    const result = await FileService.updateSubject( req.body);
+    const result = await FileService.updateAssignment( req.body);
     return res.send( result );
   } catch ( err ) {
     console.log( err ); 
@@ -55,14 +56,14 @@ async function updateSubject ( req, res ) {
 
 
 /**
- * @description Find a subject with the provided id and delete it
+ * @description Delete an assignment with the provided id and delete it
  * @param req {object} Express req object 
  * @param res {object} Express res object
  * @returns {object} success or failure object
  */
-async function deleteSubject ( req, res ) {
+async function deleteAssignment ( req, res ) {
   try {
-    const result = await FileService.deleteSubject( req.body);
+    const result = await FileService.deleteAssignment( req.body);
     return res.send( result );
   } catch ( err ) {
     console.log( err ); 
@@ -74,14 +75,14 @@ async function deleteSubject ( req, res ) {
 
 
 /**
- * @description get subjects with the grade provided
+ * @description get assignments with the grade and subject provided
  * @param req {object} Express req object 
  * @param res {object} Express res object
  * @returns {object} success or failure object
  */
-async function getStudentSubjects ( req, res ) {
+async function getAssignments ( req, res ) {
   try {
-    const result = await FileService.getSubjects( req.body);
+    const result = await FileService.getAssignments( req.body);
     return res.send( result );
   } catch ( err ) {
     console.log( err ); 
@@ -89,19 +90,3 @@ async function getStudentSubjects ( req, res ) {
   }
 }
 
-
-/**
- * @description get lecturer subjects with the lecturer_id provided
- * @param req {object} Express req object 
- * @param res {object} Express res object
- * @returns {object} success or failure object
- */
-async function getLecturerSubjects ( req, res ) {
-  try {
-    const result = await FileService.getLecturerSubjects( req.body);
-    return res.send( result );
-  } catch ( err ) {
-    console.log( err ); 
-    res.status( 500 ).send( { Status: 500 , Success: false, Error : `${err.name} : ${err.message}`  } );
-  }
-}

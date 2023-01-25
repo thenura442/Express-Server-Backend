@@ -5,16 +5,16 @@ const Joi = require('@hapi/joi');
 const SubjectValidation = data => {
     const schema = Joi.object({
         _id: Joi.string()
-            .min(6)
+            .min(4)
             .required(),
         name: Joi.string()
-            .min(6)
+            .min(4)
             .required(),
         description: Joi.string()
-            .min(20)
+            .min(10)
             .max(512),
-        lecturer: Joi.string()
-            .min(6)
+        lecturer_id: Joi.string()
+            .min(4)
             .max(100)
             .required(),
         grade: Joi.string()

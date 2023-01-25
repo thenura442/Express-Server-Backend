@@ -5,10 +5,10 @@ let user = require("../../Controllers/user.controller")
 router.post("/register", user.createUser);
 router.get("/get",user.getAllUsers);
 router.get("/newId", user.getNewId);
-router.get("/get/id", user.findOne);
+router.post("/get/id", user.findOne);
 router.put("/update/id", user.updateOne);
 router.put("/update", user.updateMany);
-router.delete("/delete/id", user.deleteOne);
+router.post("/delete/id", user.deleteOne);
 router.delete("/delete", user.deleteMany);
 
 module.exports = router;

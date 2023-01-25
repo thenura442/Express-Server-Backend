@@ -10,7 +10,7 @@ class FileService {
    */
   constructor () {
     // Create instance of Data Access layer using our desired model
-    this.MongooseServiceInstance = new MongooseService( FileModel );
+    this.MongooseServiceInstance = new MongooseService( FileModel.Subject );
   }
 
   
@@ -22,23 +22,102 @@ class FileService {
    */
   async create ( body) {
     try {
-      //Validate user with Joi Schema
-      let error = await SubjectValidation(body)
-      if (error) return {Status: 400 , Error: error.details[0].message }
-
-      //Check if email already exists
-      let emailExist = await this.findEmailExist(body);
-      if(emailExist) return  {Status: 400 , Email : emailExist.email, Error: "Email already Exists" }
-      
-      //Creating the User
-      this.MongooseServiceInstance = new MongooseService( model );
       return await this.MongooseServiceInstance.create( body )
     } 
     catch ( err ) {
       console.log( err)
-      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/register.service.js - create(body)"};
+      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/subject.service.js - create(body)"};
+    }
+  }
+
+
+
+  /**
+   * @description Attempt to find a post with the provided object
+   * @param body {object} Object containing '_id' field to
+   * find specific post
+   * @returns {Object}
+   */
+  async findSubject( body ) {
+    try {
+      return await this.MongooseServiceInstance.findById( body._id);
+    } 
+    catch ( err ) {
+      console.log( err)
+      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/subject.service.js - findSubject(body)"};
+    }
+  }
+
+
+  /**
+   * @description Attempt to find a update with the provided object
+   * @param body {object} Object containing '_id' field to
+   * update specific post
+   * @returns {Object}
+   */
+  async updateSubject( body ) {
+    try {
+      return await this.MongooseServiceInstance.update( body._id,body);
+    } 
+    catch ( err ) {
+      console.log( err)
+      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/subject.service.js - findSubject(body)"};
+    }
+  }
+
+
+
+  /**
+   * @description Attempt to delete subject with the provided id
+   * @param body {object} Object containing '_id' field to
+   * find specific post
+   * @returns {Object}
+   */
+  async deleteSubject( body ) {
+    try {
+      return await this.MongooseServiceInstance.deleteOne({_id: body._id});
+    } 
+    catch ( err ) {
+      console.log( err)
+      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/subject.service.js - findSubject(body)"};
+    }
+  }
+
+
+
+  /**
+   * @description Attempt to get all subject with the provided grade
+   * @param body {object} Object containing 'grade' field to
+   * find specific post
+   * @returns {Object}
+   */
+  async getStudentSubjects( body ) {
+    try {
+      return await this.MongooseServiceInstance.find({grade: body.grade});
+    } 
+    catch ( err ) {
+      console.log( err)
+      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/subject.service.js - findSubject(body)"};
+    }
+  }
+
+
+  /**
+   * @description Attempt to get all Assignments with the provided grade
+   * @param body {object} Object containing 'lecturer_id' field to
+   * find subjects
+   * @returns {Object}
+   */
+  async getLecturerSubjects( body ) {
+    try {
+      return await this.MongooseServiceInstance.find({lecturer_id: body.lecturer_id});
+    } 
+    catch ( err ) {
+      console.log( err)
+      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/assignment.service.js - getAssignments(body)"};
     }
   }
 }
+
 
 module.exports = FileService;

@@ -64,7 +64,9 @@ async function getAllUsers ( req, res ) {
  */
 async function findOne ( req, res ) {
   try {
+    console.log(req.body)
     const result = await FileService.findOne( req.body);
+    console.log(result);
     return res.send( result );
   } catch ( err ) {
     console.log( err ); 

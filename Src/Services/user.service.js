@@ -158,6 +158,11 @@ class FileService {
    */
   async updateOne( body ) {
     try {
+      //Hashing the Password
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(body.password, salt)
+      body.password = hashedPassword;
+
       let model = this.getType(body.type);        
       this.MongooseServiceInstance = new MongooseService( model );
       return await this.MongooseServiceInstance.update(body._id,body);
