@@ -93,7 +93,7 @@ class FileService {
    */
   async getStudentSubjects( body ) {
     try {
-      return await this.MongooseServiceInstance.find({grade: body.grade});
+      return await this.MongooseServiceInstance.find({grade: body.grade},  { _id: 1});
     } 
     catch ( err ) {
       console.log( err)

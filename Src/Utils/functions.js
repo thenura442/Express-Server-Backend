@@ -132,7 +132,7 @@ class MongooseService {
      * @param {object} [projection] Optional: Fields to return or not return from query
      * @returns {object} Returns the results of the query
      */
-    find( query, projection = { __v: 0 }, sort) {
+    find( query, sort ,projection = { __v: 0 }) {
       return this.model
         .find( query , projection )
         .sort(sort); 
