@@ -1,7 +1,7 @@
 const file = require( "../Services/user.service" );
 const FileService = new file();
 
-module.exports = { createUser, getNewId ,getAllUsers ,findOne , updateOne, updateMany , deleteOne , deleteMany };
+module.exports = { createUser, getNewId ,getAllUsers ,findOne , updateOne, updateMany , deleteOne , deleteMany, getLecturers };
 
 /**
  * @description Create a cord with the provided body
@@ -136,6 +136,26 @@ async function deleteOne ( req, res ) {
 async function deleteMany ( req, res ) {
   try {
     const result = await FileService.deleteMany( req.body);
+    return res.send( result );
+  } catch ( err ) {
+    console.log( err ); 
+    res.status( 500 ).send( { Status: 500 , Success: false, Error : `${err.name} : ${err.message}`  } );
+  }
+}
+
+
+
+/**
+ * @description Get all lecturers 
+ * @param req {object} Express req object 
+ * @param res {object} Express res object
+ * @returns {object} success or failure object
+ */
+async function getLecturers ( req, res ) {
+  try {
+    console.log(req.body)
+    const result = await FileService.getLecturers( req.body);
+    console.log(result);
     return res.send( result );
   } catch ( err ) {
     console.log( err ); 

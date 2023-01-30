@@ -1,0 +1,34 @@
+Winston - logger
+morgan - http logger
+
+chai , chai-http, mocha - tests
+eslint - linting
+NYC - for test analysis
+mochawesome - UI for tests
+jsonwebtoken - token
+bcrypt - to hash
+foo -
+jimp - setting photo quality
+dotenv - 
+express busboy(only if needed for multiform data)
+image-to-base64
+node-base64-image
+
+
+express-fileupload or multer - sending data
+url - to access url information
+multer - uploading files
+
+fs -
+path - to access paths etc
+lodash - functions for arrays numbers objects strings etc
+rotating-file-strean - to delete and reset log files etc
+
+express -
+mongoose -
+cors - 
+body-parser - 
+
+
+
+use async pipe

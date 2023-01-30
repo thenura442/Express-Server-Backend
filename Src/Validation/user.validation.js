@@ -8,7 +8,7 @@ const registerStudentValidation = data => {
             .min(6)
             .required(),
         name: Joi.string()
-            .min(6)
+            .min(3)
             .required(),
         email: Joi.string()
             .min(6)
@@ -32,7 +32,7 @@ const registerStudentValidation = data => {
             .max(255)
             .required(),
         parent_name: Joi.string()
-            .min(6)
+            .min(3)
             .required(),
         parent_no: Joi.string()
             .max(10)
@@ -45,14 +45,17 @@ const registerStudentValidation = data => {
         grade: Joi.string()
             .required(),
         dle_access: Joi.string()
-            .max(10),
+            .max(10)
+            .required(),
         url: Joi.string()
             .min(10)
             .max(1024),
         type: Joi.string()
             .min(5)
             .max(9)
-            .required()
+            .required(),
+        createdAt: Joi.string(),
+        updatedAt: Joi.string()
     });
     return schema.validate(data);
 }
@@ -67,7 +70,7 @@ const registerStaffValidation = data => {
             .min(6)
             .required(),
         name: Joi.string()
-            .min(6)
+            .min(3)
             .required(),
         email: Joi.string()
             .min(6)
@@ -95,14 +98,17 @@ const registerStaffValidation = data => {
             .min(10)
             .required(),
         dle_access: Joi.string()
-            .max(10),
+            .max(10)
+            .required(),
         url: Joi.string()
             .min(10)
             .max(1024),
         type: Joi.string()
-            .min(5)
+            .min(4)
             .max(9)
-            .required()
+            .required(),
+        createdAt: Joi.string(),
+        updatedAt: Joi.string()
     });
     return schema.validate(data);
 }

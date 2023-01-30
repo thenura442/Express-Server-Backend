@@ -7,7 +7,7 @@ let assignment = require("../../Controllers/assignment.controller")
 router.post("/register", assignment.createAssignment);
 router.post("/get/id", assignment.findAssignment);
 router.put("/update/id", assignment.updateAssignment);
-router.post("/delete/id", assignment.deleteAssignment);
+router.post("/delete/id" ,assignment.deleteAssignment);
 router.post("/get/assignments",assignment.getAssignments);
 
 module.exports = router;

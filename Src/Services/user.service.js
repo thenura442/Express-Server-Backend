@@ -9,10 +9,7 @@ class FileService {
   /**
    * @description Create an instance of PostService
    */
-  constructor () {
-    // Create instance of Data Access layer using our desired model
-    // this.MongooseServiceInstance = new MongooseService( FileModel );
-  }
+  constructor () {}
 
   
   /**
@@ -29,8 +26,8 @@ class FileService {
       console.log(id);
       if(id.Error) return {Status: 500 ,Error: id.Error}
       body._id = id;
-
-      //Validate user with Joi Schema
+      
+      //Validating with joi schema by calling validateRegistration function at the end of the page
       let error = await this.validateRegistration(body)
       if (error) return {Status: "400" , Error: error.details[0].message }
 
@@ -158,13 +155,26 @@ class FileService {
    */
   async updateOne( body ) {
     try {
-      //Hashing the Password
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(body.password, salt)
-      body.password = hashedPassword;
 
-      let model = this.getType(body.type);        
+      //Getting Mongoose Instance 
+      let model = this.getType(body.type);  
       this.MongooseServiceInstance = new MongooseService( model );
+
+      //Validating with joi schema by calling validateRegistration function at the end of the page
+      let error = await this.validateRegistration(body)
+      if (error) return {Status: "400" , Error: error.details[0].message }
+
+      //checking if password same
+      let user = await this.MongooseServiceInstance.findById(body._id);
+
+      if(body.password != user.password){
+        //Hashing the Password if password changed
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(body.password, salt)
+        body.password = hashedPassword;
+      }
+      
+      //Updating document and returning result
       return await this.MongooseServiceInstance.update(body._id,body);
     } 
     catch ( err ) {
@@ -230,6 +240,26 @@ class FileService {
   }
 
 
+  
+  /**
+   * @description Attempt to find a post with the provided object
+   * @param body {object} Object containing '_id' field to
+   * find specific post
+   * @returns {Object}
+   */
+  async getLecturers( body ) {
+    try {
+      let model = this.getType(body.type);        
+      this.MongooseServiceInstance = new MongooseService( model );
+      return await this.MongooseServiceInstance.find( {type: body.type} );
+    } 
+    catch ( err ) {
+      console.log( err)
+      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/register.service.js - findOne(body)"};
+    }
+  }
+
+
 
   /**
    * @description Attempt to provide with the required Collection
@@ -238,7 +268,7 @@ class FileService {
    */
   getType(type){
     let collection;
-    if(type === 'staff' || type === 'temp-admin' || type === 'lecturer') {
+    if(type === 'staff' || type === 'admin' || type === 'lecturer') {
       collection = FileModel.Staff
     }
     if(type === 'student'){

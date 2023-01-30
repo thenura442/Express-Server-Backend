@@ -9,6 +9,7 @@ router.post("/get/id", user.findOne);
 router.put("/update/id", user.updateOne);
 router.put("/update", user.updateMany);
 router.post("/delete/id", user.deleteOne);
+router.post("/lecturers", user.getLecturers);
 router.delete("/delete", user.deleteMany);
 
 module.exports = router;

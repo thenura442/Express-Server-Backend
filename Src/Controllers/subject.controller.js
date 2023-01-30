@@ -81,7 +81,7 @@ async function deleteSubject ( req, res ) {
  */
 async function getStudentSubjects ( req, res ) {
   try {
-    const result = await FileService.getSubjects( req.body);
+    const result = await FileService.getStudentSubjects( req.body);
     return res.send( result );
   } catch ( err ) {
     console.log( err ); 
