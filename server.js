@@ -5,8 +5,6 @@ const morgan = require('morgan');
 const socket = require('socket.io');
 
 const app = express();
-
-
 //Requiring the model.js that will connect to the DB with constructor
 require('./Src/Models/model');
 
@@ -28,7 +26,6 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('tiny'));
-
 const rooms = { name: { user:{}}};
 
 app.post('/room', (req, res) => {
