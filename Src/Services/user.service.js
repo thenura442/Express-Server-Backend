@@ -157,6 +157,7 @@ class FileService {
     try {
 
       //Getting Mongoose Instance 
+      if(collection == null) { return {status: 400}}
       let model = this.getType(body.type);  
       this.MongooseServiceInstance = new MongooseService( model );
 
@@ -274,6 +275,7 @@ class FileService {
     if(type === 'student'){
       collection = FileModel.Student
     }
+    collection = null
     return collection
   }
 

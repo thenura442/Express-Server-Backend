@@ -39,7 +39,9 @@ class FileService {
    */
   async findAssignment( body ) {
     try {
-      return await this.MongooseServiceInstance.findOne( {id: body.id, subject: body.subject} );
+      let result = await this.MongooseServiceInstance.findOne( {id: body.id, subject: body.subject} );
+      if(result == null ) { return {status: 400}}
+      return result;
     } 
     catch ( err ) {
       console.log( err)

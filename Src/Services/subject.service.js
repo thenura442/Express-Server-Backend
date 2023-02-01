@@ -40,7 +40,9 @@ class FileService {
    */
   async findSubject( body ) {
     try {
-      return await this.MongooseServiceInstance.findById( body._id);
+      let result =await this.MongooseServiceInstance.findById( body._id);
+      if(result == null) { return {status: 400}}
+      return result;
     } 
     catch ( err ) {
       console.log( err)

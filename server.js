@@ -51,19 +51,11 @@ app.use('/', (req, res) => {
         message: 'Server Loaded Successfully',
         Description: config.name+' RestAPI For a MEAN Application Project',
         Port: config.port,
-        BaseUrl: config.url+config.port     
+        BaseUrl: config.url   
     });
 })
 
-function stop() {
-    app.close();
-}
-
-
 module.exports.app = app;
-module.exports.stop = stop;
-
-
 
 var server = require('http').Server(app);
 
