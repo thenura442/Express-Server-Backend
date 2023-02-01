@@ -4,7 +4,7 @@ let user = require("../../Controllers/user.controller")
 //Routes related to user actions of types temp-admin, staff, lecturer and student
 router.post("/register", user.createUser);
 router.get("/get",user.getAllUsers);
-//router.get("/newId", user.getNewId);
+router.get("/newId", user.getNewId);
 router.post("/get/id", user.findOne);
 router.put("/update/id", user.updateOne);
 router.put("/update", user.updateMany);

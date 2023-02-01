@@ -64,9 +64,6 @@ async function getAllUsers ( req, res ) {
  */
 async function findOne ( req, res ) {
   try {
-    if(body.type != 'student' || body.type != 'staff' || body.type != 'admin' || body.type != 'lecturer'){
-      res.status(400).send({Error: 'User Type is not allowed to be Null!'})
-    }
     const result = await FileService.findOne( req.body);
     console.log(result);
     return res.send( result );

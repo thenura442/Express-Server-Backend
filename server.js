@@ -29,7 +29,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('tiny'));
 
-const rooms = { };
+const rooms = { name: { user:{}}};
 
 app.post('/room', (req, res) => {
     rooms[req.body.room] = { users: {} }
