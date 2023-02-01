@@ -19,7 +19,6 @@ class MongooseService {
         .aggregate( pipeline );
     }
 
-
   
     /**
      * @description Create a new document on the Model
