@@ -33,8 +33,6 @@ const rooms = { };
 
 app.post('/room', (req, res) => {
     rooms[req.body.room] = { users: {} }
-    console.log(req.body.room+' Yoo')
-    console.log(rooms);
     // Send message that new room was created
     io.emit('room-created', req.body.room)
   })
@@ -76,7 +74,6 @@ io.on('connection', (socket) => {
     }))
 
     socket.on('chat', function(room, data){
-        console.log(data)
         socket.to(room).emit('chat',data);
     })
     socket.on('typing',function(room, data){

@@ -1,7 +1,7 @@
 // services/PostService.js
 const MongooseService = require( '../Utils/functions' ); // Data Access Layer
 const FileModel = require( "../Models/assignment.model" ); // Database Model
-
+const { AssignmentValidation } = require("../Validation/assignment.validation");
 
 class FileService {
   /**
@@ -21,6 +21,12 @@ class FileService {
    */
   async create ( body) {
     try {
+
+      if(body != null){
+        let { error } = SubjectValidation(body);
+        return error
+      }
+
       return await this.MongooseServiceInstance.create( body )
     } 
     catch ( err ) {
@@ -58,6 +64,12 @@ class FileService {
    */
   async updateAssignment( body ) {
     try {
+
+      if(body != null){
+        let { error } = SubjectValidation(body);
+        return error
+      }
+
       return await this.MongooseServiceInstance.updateOne( {id: body.id, subject: body.subject},body);
     } 
     catch ( err ) {

@@ -16,7 +16,7 @@ async function loginUser ( req, res ) {
       return res.send(result)
     }
     console.log(result.Token)
-    res.cookie('Cookie', result.Token, {maxAge: 10*60*62*60*1000, httpOnly: true, sameSite: 'none', secure: true}) 
+    res.cookie('Cookie', result.Token, {maxAge: 62*60*1000, httpOnly: true, sameSite: 'none', secure: true}) 
     res.send({ Status: 200 , _id: result._id, email: result.email , type: result.type, grade: result.grade, dle_access: result.dle_access})    
   } catch ( err ) {
     console.log( err ); 

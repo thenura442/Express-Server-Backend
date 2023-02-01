@@ -11,7 +11,6 @@ module.exports = { createAssignment , findAssignment, updateAssignment, deleteAs
  */
 async function createAssignment ( req, res ) {
   try {
-    console.log('Urls'+req.body);
     const result = await FileService.create( req.body);
     return res.send( result );
   } catch ( err ) {
@@ -63,8 +62,6 @@ async function updateAssignment ( req, res ) {
  */
 async function deleteAssignment ( req, res ) {
   try {
-    console.log(req.body)
-    console.log(req.body.url.length)
     for( let i=0; i<2; i++ ) {
       let x = req.body.url[i].split('/')
       await fs.unlink('Public/Files/'+x[4],function(err){
@@ -73,8 +70,6 @@ async function deleteAssignment ( req, res ) {
         console.log('File deleted!');
       }); 
     }
-    
-    //const result = await FileService.deleteAssignment( req.body);
     return res.send( {"result": "result"} );
   } catch ( err ) {
     console.log( err ); 

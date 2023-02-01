@@ -2,8 +2,6 @@ var request = require('supertest'), server = require('../../server');
 var chai = require('chai');
 
 
-
-
 // TESTING BASIC GET ROUTE
 
 describe("Integration Testing - Testing Basic Get Route For Health Checks", function(){

@@ -22,6 +22,12 @@ class FileService {
    */
   async create ( body) {
     try {
+
+      if(body != null){
+        let { error } = SubjectValidation(body);
+        return error
+      }
+
       return await this.MongooseServiceInstance.create( body )
     } 
     catch ( err ) {

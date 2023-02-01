@@ -155,9 +155,7 @@ async function deleteMany ( req, res ) {
  */
 async function getLecturers ( req, res ) {
   try {
-    console.log(req.body)
     const result = await FileService.getLecturers( req.body);
-    console.log(result);
     return res.send( result );
   } catch ( err ) {
     console.log( err ); 
