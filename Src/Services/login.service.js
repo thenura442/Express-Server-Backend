@@ -22,7 +22,7 @@ class LoginService {
       let {error} = await loginValidation(body)
       if (error) return {Status: "400" , Error: error.details[0].message }
 
-      //Check if email already exists
+      //Check if email exists
       let User = await this.findEmailExist(body);
       if(!User) return  {Status: "400" , Error: "Email or Password is Incorrect" }
 
@@ -37,7 +37,7 @@ class LoginService {
     } 
     catch ( err ) {
       console.log( err)
-      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/register.service.js - find(body)"};
+      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/login.service.js - loginAndAuthenticate(body)"};
     }
   }
   
@@ -57,7 +57,7 @@ class LoginService {
     } 
     catch ( err ) {
       console.log( err)
-      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/register.service.js - findEmailExist(body)"};
+      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/login.service.js - findEmailExist(body)"};
     }
   }
 

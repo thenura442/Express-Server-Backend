@@ -47,7 +47,7 @@ class FileService {
     } 
     catch ( err ) {
       console.log( err)
-      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/register.service.js - create(body)"};
+      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/user.service.js - create(body)"};
     }
   }
 
@@ -83,7 +83,7 @@ class FileService {
     } 
     catch ( err ) {
       console.log( err)
-      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/register.service.js - getNewId(body)"};
+      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/user.service.js - getNewId(body)"};
     }
   }
 
@@ -103,7 +103,7 @@ class FileService {
     } 
     catch ( err ) {
       console.log( err)
-      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/register.service.js - findEmailExist(body)"};
+      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/user.service.js - findEmailExist(body)"};
     }
   }
 
@@ -121,7 +121,7 @@ class FileService {
     } 
     catch ( err ) {
       console.log( err)
-      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/register.service.js - find(body)"};
+      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/user.service.js - find(body)"};
     }
   }
 
@@ -141,7 +141,7 @@ class FileService {
     } 
     catch ( err ) {
       console.log( err)
-      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/register.service.js - findOne(body)"};
+      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/user.service.js - findOne(body)"};
     }
   }
 
@@ -179,7 +179,7 @@ class FileService {
     } 
     catch ( err ) {
       console.log( err)
-      return { Status: 500, Error : `${err.name} : ${err.message} `, Location: "./Src/Service/register.service.js - updateOne(body)" };
+      return { Status: 500, Error : `${err.name} : ${err.message} `, Location: "./Src/Service/user.service.js - updateOne(body)" };
     }
   }
 
@@ -198,7 +198,7 @@ class FileService {
     } 
     catch ( err ) {
       console.log( err)
-      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/register.service.js - updateMany(body)"};
+      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/user.service.js - updateMany(body)"};
     }
   }
 
@@ -216,7 +216,7 @@ class FileService {
     } 
     catch ( err ) {
       console.log( err)
-      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/register.service.js - deleteOne(body)"};
+      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/user.service.js - deleteOne(body)"};
     }
   }
 
@@ -235,7 +235,7 @@ class FileService {
     } 
     catch ( err ) {
       console.log( err)
-      return { Status: 500, Error : `${err.name} : ${err.message} `, Location: "./Src/Service/register.service.js - deleteMany(body)" };
+      return { Status: 500, Error : `${err.name} : ${err.message} `, Location: "./Src/Service/user.service.js - deleteMany(body)" };
     }
   }
 
@@ -255,7 +255,7 @@ class FileService {
     } 
     catch ( err ) {
       console.log( err)
-      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/register.service.js - findOne(body)"};
+      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/user.service.js - getLecturers(body)"};
     }
   }
 

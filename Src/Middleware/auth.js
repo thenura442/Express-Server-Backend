@@ -17,14 +17,14 @@ function verifyToken(req, res, next) {
     try{
         const authHeader = req.header('Cookie');
         const token = authHeader && authHeader.split('=')[1];
-        if(token == null) return res.status(401).send('Access Denied');
+        if(token == null) return res.status(406).send('Access Denied');
 
         const verified = jwt.verify(token, config.Access_Token_Secret)
         req.user = verified;
         next();     
     }
     catch(err){
-        res.status(400).send('Invalid Token');
+        res.status(406).send('Invalid Token');
     }
 }
 

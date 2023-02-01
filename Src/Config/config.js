@@ -10,7 +10,7 @@ const config = {
     port: process.env.PORT || 5000,
     env: process.env.APP_ENV || "development",
     name: process.env.APP_NAME || "DLE Backend Server",
-    url: process.env.APP_URL || "http://localhost:",
+    url: process.env.APP_URL || "http://localhost:5500",
     logDir: process.env.LOG_DIR || "Logs",
     Access_Token_Secret: process.env.ACCESS_TOKEN_SECRET,
     Refresh_Token_Secret: process.env.REFRESH_TOKEN_SECRET

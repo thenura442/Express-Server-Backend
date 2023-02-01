@@ -12,7 +12,7 @@ module.exports = { createUpload , updateUpload};
 async function createUpload ( req, res ) {
   try {
     console.log(req.files)
-    let url = config.url+''+config.port+'/Files/';
+    let url = config.url+'/Files/';
     let arr = [];
     let img;
     let files = req.files;
@@ -54,7 +54,7 @@ async function createUpload ( req, res ) {
  */
 async function updateUpload ( req, res ) {
     try {
-      let url = config.url+''+config.port+'/Files/'+req.file.filename;
+      let url = config.url+'/Files/'+req.file.filename;
       return res.send( {"result": url} );
     } catch ( err ) {
       console.log( err ); 

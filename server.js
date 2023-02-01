@@ -2,7 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const morgan = require('morgan');
+const socket = require('socket.io');
+
 const app = express();
+
 
 //Requiring the model.js that will connect to the DB with constructor
 require('./Src/Models/model');
@@ -14,7 +17,8 @@ let port = config.port
 
 //Cors(cross orgin request) options are set here
 const corsOptions={
-    origin:'http://localhost:5500',
+    credentials: true, 
+    origin:['https://cms-dle.netlify.app','http://localhost:4200'],
     //credentials:true,            //access-control-allow-credentials:true
     optionsSuccessStatus:200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   };
@@ -25,6 +29,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('tiny'));
 
+const rooms = { };
+
+app.post('/room', (req, res) => {
+    rooms[req.body.room] = { users: {} }
+    console.log(req.body.room+' Yoo')
+    console.log(rooms);
+    // Send message that new room was created
+    io.emit('room-created', req.body.room)
+  })
+
+  app.get('/get', (req, res) => {
+    res.send({rooms:rooms})
+  })
 app.use('/api', route)
 
 //Default Loading for the Server
@@ -38,7 +55,43 @@ app.use('/', (req, res) => {
     });
 })
 
-//Starting the Server
-app.listen(port, () => {
-    console.log(`Sever Running on port ${port}`)
-});  
+function stop() {
+    app.close();
+}
+
+
+module.exports.app = app;
+module.exports.stop = stop;
+
+
+
+var server = require('http').Server(app);
+
+server.listen(port, function(){
+    console.log('listening on port 5500');
+})
+
+var io = socket(server, {cors: {origin: "*"}});
+
+io.on('connection', (socket) => {
+    console.log(`New Connection ${socket.id}`);
+
+    socket.on('new-user', ((room,name)=>{
+        console.log('New User')
+        socket.join(room);
+        rooms[room].users[socket.id] = name;
+        socket.to(room).emit('user-connected',name);
+    }))
+
+    socket.on('chat', function(room, data){
+        console.log(data)
+        socket.to(room).emit('chat',data);
+    })
+    socket.on('typing',function(room, data){
+        socket.to(room).emit('typing',data);
+    })
+
+    socket.on('delete-chat',function(room){
+        console.log(delete rooms[room]);
+    })
+})

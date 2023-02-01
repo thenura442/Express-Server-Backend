@@ -61,7 +61,7 @@ class FileService {
     } 
     catch ( err ) {
       console.log( err)
-      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/subject.service.js - findSubject(body)"};
+      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/subject.service.js - updateSubject(body)"};
     }
   }
 
@@ -79,7 +79,7 @@ class FileService {
     } 
     catch ( err ) {
       console.log( err)
-      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/subject.service.js - findSubject(body)"};
+      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/subject.service.js - deleteSubject(body)"};
     }
   }
 
@@ -97,7 +97,7 @@ class FileService {
     } 
     catch ( err ) {
       console.log( err)
-      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/subject.service.js - findSubject(body)"};
+      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/subject.service.js - getStudentSubjects(body)"};
     }
   }
 
@@ -114,7 +114,7 @@ class FileService {
     } 
     catch ( err ) {
       console.log( err)
-      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/assignment.service.js - getAssignments(body)"};
+      return { Status: 500 , Error : `${err.name} : ${err.message} `, Location: "./Src/Service/subject.service.js - getLecturerSubjects(body)"};
     }
   }
 }

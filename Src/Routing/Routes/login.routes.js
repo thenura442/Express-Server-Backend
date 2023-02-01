@@ -3,6 +3,6 @@ let user = require("../../Controllers/login.controller")
 
 //Route of login
 router.post("/login", user.loginUser);
-router.post("/logout", user.logoutUser);
+router.get("/logout", user.logoutUser);
 
 module.exports = router;

@@ -12,10 +12,12 @@ module.exports = { loginUser, logoutUser};
 async function loginUser ( req, res ) {
   try {
     const result = await LoginService.loginAndAuthenticate( req.body);
-    if(!result.Token) {return res.send(result)}
+    if(!result.Token) {
+      return res.send(result)
+    }
     console.log(result.Token)
     res.cookie('Cookie', result.Token, {maxAge: 62*60*1000, httpOnly: true, sameSite: 'none', secure: true}) 
-    return res.send(result)    
+    res.send({ Status: 200 , _id: result._id, email: result.email , type: result.type, grade: result.grade, dle_access: result.dle_access})    
   } catch ( err ) {
     console.log( err ); 
     res.status( 500 ).send( { Status: 500 , Success: false, Error : `${err.name} : ${err.message}`  } );
@@ -33,7 +35,7 @@ async function loginUser ( req, res ) {
 async function logoutUser ( req, res ) {
   try {
     res.cookie('Cookie', "cookie=loggedout", {maxAge: -1, httpOnly: true, sameSite: 'none', secure: true}) 
-    return res.send("Token Invalidated and Logged Out");  
+    return res.send({logout: 'success'});  
   } catch ( err ) {
     console.log( err ); 
     res.status( 500 ).send( { Status: 500 , Success: false, Error : `${err.name} : ${err.message}`  } );
