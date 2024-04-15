@@ -15,7 +15,7 @@ The Dynamic Learning Environment (DLE) Web App is a comprehensive online learnin
 - Clone the repository to a designated location on your device.
 - Open the project.
 - Run npm i to install required dependancies
-- Clone the Frontend as well and run npm i ([DLE Frontend](https://github.com/thenura442/Angular-Frontend-Client-Side/).)
+- Clone the Frontend as well and run npm i ([DLE Frontend](https://github.com/thenura442/Digital-Learning-Environment-Frontend/))
 - Once both repositories are running you should now be able to run the project without any issues.
 
 
